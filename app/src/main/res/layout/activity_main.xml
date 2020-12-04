@@ -7,22 +7,101 @@
     tools:context=".MainActivity">
 
 
-    <io.github.takusan23.droppopalert.DropPopAlert
-        android:id="@+id/dropPopAlert"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <Button
+        android:id="@+id/drop_down_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DROP_DOWN"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/alert_button"
-        android:layout_width="wrap_content"
+        android:id="@+id/drop_up_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Alert!"
+        android:text="DROP_UP"
+        app:layout_constraintBottom_toTopOf="@+id/drop_down_button"
+        app:layout_constraintEnd_toEndOf="@+id/drop_down_button"
+        app:layout_constraintStart_toStartOf="@+id/drop_down_button" />
+
+    <io.github.takusan23.droppopalert.DropPopAlertView
+        android:id="@+id/drop_pop_alert_down_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B6FF8F"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20sp"
+                android:text="メニュー" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_height="wrap_content"
+                    android:text="更新" />
+
+                <Button
+                    android:layout_margin="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="キャンセル" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </io.github.takusan23.droppopalert.DropPopAlertView>
+
+    <io.github.takusan23.droppopalert.DropPopAlertView
+        android:id="@+id/drop_pop_alert_up_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#7CFFEE"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="20sp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="Drop Pop Alert" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:text="メッセージ" />
+
+        </LinearLayout>
+    </io.github.takusan23.droppopalert.DropPopAlertView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

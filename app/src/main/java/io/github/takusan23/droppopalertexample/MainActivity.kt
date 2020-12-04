@@ -2,6 +2,7 @@ package io.github.takusan23.droppopalertexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import io.github.takusan23.droppopalert.DropPopAlertView
 import io.github.takusan23.droppopalertexample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -10,13 +11,12 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.alertButton.setOnClickListener {
-            binding.dropPopAlert.alert("こんにちは世界！")
+        binding.dropDownButton.setOnClickListener {
+            binding.dropPopAlertDownView.alert(DropPopAlertView.ALERT_DROP)
         }
 
-        binding.dropPopAlert.apply {
-            transitionMs = 5000
-            alertTextView.textSize = 20f
+        binding.dropUpButton.setOnClickListener {
+            binding.dropPopAlertUpView.alert(DropPopAlertView.ALERT_UP)
         }
 
     }
