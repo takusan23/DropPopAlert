@@ -30,6 +30,13 @@ allprojects {
 
 `1.0.0`のところは各自書き換えてください。
 
+```gradle
+dependencies {
+    // これも
+    implementation 'com.github.takusan23:DropPopAlert:1.0.0'
+}
+```
+
 # 使い方
 
 今回は`ViewBinding`を使います。`ViewBinding`を有効にするには以下のように`app/build.gradle`に書いてください。
@@ -44,13 +51,6 @@ android {
 
 dependencies {
     // これ
-    implementation 'com.github.takusan23:DropPopAlert:1.0.0'
-}
-```
-
-```gradle
-dependencies {
-    // これも
     implementation 'com.github.takusan23:DropPopAlert:1.0.0'
 }
 ```
