@@ -47,8 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:textSize="20sp"
-                android:text="メニュー" />
+                android:text="メニュー"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,16 +57,11 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_margin="2dp"
-                    android:layout_height="wrap_content"
-                    android:text="更新" />
-
-                <Button
-                    android:layout_margin="2dp"
+                    android:id="@+id/drop_pop_alert_down_view_close_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="キャンセル" />
+                    android:layout_margin="2dp"
+                    android:text="完了（非表示へ）" />
 
             </LinearLayout>
         </LinearLayout>
@@ -90,10 +85,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:textSize="20sp"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:text="Drop Pop Alert" />
+                android:text="Drop Pop Alert"
+                android:textSize="20sp" />
 
             <TextView
                 android:layout_width="match_parent"

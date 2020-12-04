@@ -36,44 +36,51 @@ class DropPopAlertView(ctx: Context, attr: AttributeSet) : FrameLayout(ctx, attr
      * @param position [ALERT_DROP]等参照
      * */
     fun alert(position: Int) {
-
+        // タイマー停止
         timer.cancel()
         timer = Timer()
-
-        when (position) {
-            ALERT_UP -> {
-                // ALERT_DROP。上からおりてくる
-                val startAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_up_start_anim)
-                this.startAnimation(startAnimation)
-                this.isVisible = true
-                // 終了へ
-                val endAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_up_end_anim)
-                timer.schedule(showTimeMs) {
-                    this@DropPopAlertView.post {
-                        this@DropPopAlertView.startAnimation(endAnimation)
-                        this@DropPopAlertView.isVisible = false
-                    }
-                }
-            }
-            else -> {
-                // 下から上へ
-                val startAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_drop_start_anim)
-                this.startAnimation(startAnimation)
-                this.isVisible = true
-                // 終了へ
-                val endAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_drop_end_anim)
-                timer.schedule(showTimeMs) {
-                    this@DropPopAlertView.post {
-                        this@DropPopAlertView.startAnimation(endAnimation)
-                        this@DropPopAlertView.isVisible = false
-                    }
-                }
+        // 表示
+        showAlert(position)
+        timer.schedule(showTimeMs) {
+            // UIスレッドではないため
+            this@DropPopAlertView.post {
+                hideAlert(position)
             }
         }
-
     }
+
+    /**
+     * 表示のみ。非表示にはしない。
+     * @param position [ALERT_DROP]等参照
+     * */
+    fun showAlert(position: Int) {
+        val animation = when (position) {
+            ALERT_UP -> {
+                AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_up_start_anim)
+            }
+            else -> {
+                AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_drop_start_anim)
+            }
+        }
+        this.startAnimation(animation)
+        this.isVisible = true
+    }
+
+    /**
+     * 非表示のみ。
+     * @param position [ALERT_DROP]等参照
+     * */
+    fun hideAlert(position: Int) {
+        val animation = when (position) {
+            ALERT_UP -> {
+                AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_up_end_anim)
+            }
+            else -> {
+                AnimationUtils.loadAnimation(context, R.anim.drop_pop_alert_drop_end_anim)
+            }
+        }
+        this.startAnimation(animation)
+        this.isVisible = false
+    }
+
 }
