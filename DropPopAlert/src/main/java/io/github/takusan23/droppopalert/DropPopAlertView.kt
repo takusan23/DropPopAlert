@@ -9,6 +9,13 @@ import androidx.core.view.isVisible
 import java.util.*
 import kotlin.concurrent.schedule
 
+/**
+ * 下、上からスライドして出てくるView。
+ *
+ * xmlに設置したら、予めandroid:visibilityをgoneにしておく必要があります。（tools:visibilityの方はvisibleでおｋ）
+ *
+ * [DropPopAlertView.alert]でアニメーションできます。
+ * */
 class DropPopAlertView(ctx: Context, attr: AttributeSet) : FrameLayout(ctx, attr) {
 
     /** 表示時間 */
@@ -24,10 +31,14 @@ class DropPopAlertView(ctx: Context, attr: AttributeSet) : FrameLayout(ctx, attr
         const val ALERT_UP = 2
     }
 
+    /**
+     * アニメーションさせながら表示する関数
+     * @param position [ALERT_DROP]等参照
+     * */
     fun alert(position: Int) {
 
         timer.cancel()
-        timer=Timer()
+        timer = Timer()
 
         when (position) {
             ALERT_UP -> {
