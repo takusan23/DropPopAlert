@@ -28,7 +28,7 @@ allprojects {
 
 `app`フォルダの方の`build.gradle`を開き、`dependencies { }`の中に書き足します。
 
-`1.0.0`のところは各自書き換えてください。
+`1.0.0`のところは最新版( https://github.com/takusan23/DropPopAlert/releases )を入れてください。
 
 ```gradle
 dependencies {
@@ -58,10 +58,6 @@ dependencies {
 # Viewが一つの場合
 
 TextViewだけ動かす場合は、わざわざレイアウト
-
-# Viewが複数の場合
-
-FrameLayoutを継承した`DropPopAlertView`を利用することで複数のViewを同時に移動できます（上のGIFでは上から出てくるやつ）  
 
 ## 1.レイアウト
 
@@ -128,6 +124,10 @@ class MainActivity : AppCompatActivity() {
 ### 注意点
 `Visibility`が`GONE`になります。
 
+# Viewが複数の場合
+
+FrameLayoutを継承した`DropPopAlertView`を利用することで複数のViewを同時に移動できます（上のGIFでは上から出てくるやつ）  
+
 ## 1.DropPopAlertViewをレイアウトに置きます
 
 以下は一例  
@@ -191,9 +191,9 @@ class MainActivity : AppCompatActivity() {
 引数
 - `position`
     - このどれか(現状)
-    - `DropPopAlertView.ALERT_UP`
+    - `DropPopAlert.ALERT_UP`
         - 下から飛び出てくるアニメーションをするにはこれ
-    - `DropPopAlertView.ALERT_DROP`
+    - `DropPopAlert.ALERT_DROP`
         - 上から降りてくるアニメーションをするにはこれ
 
 ```kotlin
@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity() {
 
         // 基本的な使い方
         binding.dropUpButton.setOnClickListener {
-            binding.dropPopAlertUpView.alert(DropPopAlertView.ALERT_UP)
+            binding.dropPopAlertUpView.alert(DropPopAlert.ALERT_UP)
         }
     }
 }
@@ -237,7 +237,7 @@ class MainActivity : AppCompatActivity() {
 
         // 基本的な使い方
         binding.dropUpButton.setOnClickListener {
-            binding.dropPopAlertUpView.alert(DropPopAlertView.ALERT_UP)
+            binding.dropPopAlertUpView.alert(DropPopAlert.ALERT_UP)
         }
     }
 }
@@ -247,8 +247,8 @@ class MainActivity : AppCompatActivity() {
 
 | 関数名                         | 引数                            | 説明                                                                  |
 |--------------------------------|---------------------------------|-----------------------------------------------------------------------|
-| `DropPopAlertView#showAlert()` | `DropPopAlertView.ALERT_UP`など | 表示させるだけの関数です。自動で非表示にはなりません。                |
-| `DropPopAlertView#hideAlert()` | `DropPopAlertView.ALERT_UP`など | 非表示にするだけの関数です。`showAlert()`を消すときに使ってください。 |
+| `DropPopAlert#showAlert()` | `DropPopAlert.ALERT_UP`など | 表示させるだけの関数です。自動で非表示にはなりません。                |
+| `DropPopAlert#hideAlert()` | `DropPopAlert.ALERT_UP`など | 非表示にするだけの関数です。`showAlert()`を消すときに使ってください。 |
 
 例：
 
@@ -262,15 +262,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 5秒
-        binding.dropPopAlertUpView.showTimeMs = 5 * 1000
+        binding.dropPopAlertUpView.dropPopAlert.showTimeMs = 5 * 1000
 
         // 基本的な使い方
         binding.dropUpButton.setOnClickListener {
             // 表示/非表示を切り替える
             if (binding.dropPopAlertUpView.isVisible) {
-                binding.dropPopAlertUpView.hideAlert(DropPopAlertView.ALERT_UP)
+                binding.dropPopAlertUpView.hideAlert(DropPopAlert.ALERT_UP)
             } else {
-                binding.dropPopAlertUpView.showAlert(DropPopAlertView.ALERT_UP)
+                binding.dropPopAlertUpView.showAlert(DropPopAlert.ALERT_UP)
             }
         }
     }
