@@ -55,9 +55,83 @@ dependencies {
 }
 ```
 
-## 1.DropPopAlertViewをレイアウトに置きます
+# Viewが一つの場合
+
+TextViewだけ動かす場合は、わざわざレイアウト
+
+# Viewが複数の場合
+
+FrameLayoutを継承した`DropPopAlertView`を利用することで複数のViewを同時に移動できます（上のGIFでは上から出てくるやつ）  
+
+## 1.レイアウト
+
+下、上どちらかに固定している必要があります(ConstraintLayoutだと`layout_constraintStart_toStartOf`とか？。FrameLayoutだと`layout_gravity="top"`とか？)
 
 以下は一例
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/drop_simple_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Simple"
+        app:layout_constraintEnd_toEndOf="@+id/drop_down_button"
+        app:layout_constraintStart_toStartOf="@+id/drop_down_button"
+        app:layout_constraintTop_toBottomOf="@+id/drop_down_button" />
+
+    <TextView
+        android:id="@+id/drop_pop_alert_simple"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#FF7C4E"
+        android:text="Viewが一つの場合は、\nView#toDropPopAlert() でもアニメーションが利用できます"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+## 2.Kotlinを書く
+
+`DropPopAlert(動かすView)`もしくは、`動かすView.toDropPopAlert()`で利用できるようになります。  
+後者はKotlinの拡張関数を利用しています。が特にやってることは同じです
+
+できたら`alert()`するなり、`showAlert()`を利用するなりできます。
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // ViewBindingを利用している。Kotlin Android Extensionsが非推奨になったので
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Viewが一つの場合は、DropPopAlertViewを利用せずに、DropPopAlertを利用したほうがいい
+        val simpleDropPopAlert = binding.dropPopAlertSimple.toDropPopAlert()
+        binding.dropSimpleButton.setOnClickListener {
+            simpleDropPopAlert.alert(DropPopAlert.ALERT_DROP)
+        }
+  }
+}
+```
+
+### 注意点
+`Visibility`が`GONE`になります。
+
+## 1.DropPopAlertViewをレイアウトに置きます
+
+以下は一例  
+下、上どちらかに固定している必要があります(ConstraintLayoutだと上/下に制約。FrameLayoutだと`layout_gravity="top"`とか？)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -111,7 +185,7 @@ dependencies {
 - `android:visibility`を`gone`にしておく必要があります。
 - `tools:visibility`は、`visible`することでレイアウトエディタ上では見ることができるようになります。
 
-## Kotlinを書く
+## 2.Kotlinを書く
 
 `DropPopAlertView#alert()`でアニメーションしながら表示されます。  
 引数
@@ -145,7 +219,7 @@ class MainActivity : AppCompatActivity() {
 
 ## 表示時間
 
-`DropPopAlertView#showTimeMs`で自由に変更できます。単位はミリ秒です。  
+`DropPopAlert#showTimeMs`で自由に変更できます。単位はミリ秒です。  
 
 例：
 
@@ -159,7 +233,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 5秒
-        binding.dropPopAlertUpView.showTimeMs = 5 * 1000
+        binding.dropPopAlertUpView.dropPopAlert.showTimeMs = 5 * 1000
 
         // 基本的な使い方
         binding.dropUpButton.setOnClickListener {
@@ -171,10 +245,10 @@ class MainActivity : AppCompatActivity() {
 
 ## 任意のタイミングで表示させたり、非表示にさせることができます。
 
-|関数名|引数|説明|
-|---|---|---|
-|`DropPopAlertView#showAlert()`|`DropPopAlertView.ALERT_UP`など|表示させるだけの関数です。自動で非表示にはなりません。|
-|`DropPopAlertView#hideAlert()`|`DropPopAlertView.ALERT_UP`など|非表示にするだけの関数です。`showAlert()`を消すときに使ってください。|
+| 関数名                         | 引数                            | 説明                                                                  |
+|--------------------------------|---------------------------------|-----------------------------------------------------------------------|
+| `DropPopAlertView#showAlert()` | `DropPopAlertView.ALERT_UP`など | 表示させるだけの関数です。自動で非表示にはなりません。                |
+| `DropPopAlertView#hideAlert()` | `DropPopAlertView.ALERT_UP`など | 非表示にするだけの関数です。`showAlert()`を消すときに使ってください。 |
 
 例：
 
